@@ -1,0 +1,19 @@
+Discord
+Firefox
+Fsearch
+Gimp
+LibreOffice Writer
+LibreOffice Calc
+Neovim
+Obsidian
+Syncthing
+ThunderBird
+Telegram
+TLP UI
+VMware
+Virtual Box
+VLC
+VSCode
+Whatsapp
+Xournal
+Zoom
