@@ -136,14 +136,33 @@ install_dotfiles () {
   done
 }
 
-setup_gitconfig
-install_dotfiles
+# setup_gitconfig
+# install_dotfiles
+
+# Install yay
+cd ~/Downloads
+sudo pacman -S --needed --noconfirm git base-devel
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si --noconfirm
+
+# Github
+user ' - What is your github author name?'
+read -e git_authorname
+user ' - What is your github author email?'
+read -e git_authoremail
+git config --global user.name "$git_authorname"
+git config --global user.email "$git_authoremail"
+
+## Dotfiles
+cd ~
+git clone https://github.com/tsids/dotfiles
 
 # ZSH
 sudo pacman -S zsh
 chsh -s $(which zsh)
 zsh
-echo "Follow the prompts"
+echo "====== Follow the prompts to install oh-my-zsh ======"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
@@ -161,6 +180,19 @@ sudo echo "MOZ_USE_XINPUT2 DEFAULT=1" >> /etc/security/pam_env.conf
 pacman -S discord
 sh -c "$(curl -sS https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh)"
 
+# Flameshot
+sudo pacman -S flameshot
+ln -s ~/dotfiles/flameshot/ ~/.config/
+
+# Tesseract
+yay tesseract
+yay tesseract-data-eng
+yay tesseract-data-ara
+sudo pacman -S xclip imagemagick
+
+# Binaries
+mkdir -p ~/bin
+ln -s ~/dotfiles/bin/* ~/bin/
 
 echo "Reboot the system"
 read -p "Do you want to reboot now? [y/N] " -n 1 -r
@@ -168,3 +200,4 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
     sudo reboot
 fi
+echo "Reboot the system to apply changes"
