@@ -56,3 +56,10 @@ reboot and restart firefox
 pacman -S discord
 sh -c "$(curl -sS https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh)"
 ```
+
+## Tesseract for OCR
+```sh
+yay tesseract
+```
+[tesseract_ocr_eng.sh](tesseract/ocr_eng.sh)
+[tesseract_ocr_ara.sh](tesseract/ocr_ara.sh)
