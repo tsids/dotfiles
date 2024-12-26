@@ -157,6 +157,14 @@ yay -S touche
 ### Firefox touch gestures
 sudo echo "MOZ_USE_XINPUT2 DEFAULT=1" >> /etc/security/pam_env.conf
 
-reboot
-
 # Discord
+pacman -S discord
+sh -c "$(curl -sS https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh)"
+
+
+echo "Reboot the system"
+read -p "Do you want to reboot now? [y/N] " -n 1 -r
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    sudo reboot
+fi
