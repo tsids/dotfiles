@@ -27,25 +27,24 @@ fail () {
 }
 
 setup_gitconfig () {
-  if ! [ -f git/gitconfig.local.symlink ]
+  info 'setup gitconfig'
+
+  git_credential='cache'
+  if [ "$(uname -s)" == "Darwin" ]
   then
-    info 'setup gitconfig'
-
-    git_credential='cache'
-    if [ "$(uname -s)" == "Darwin" ]
-    then
-      git_credential='osxkeychain'
-    fi
-
-    user ' - What is your github author name?'
-    read -e git_authorname
-    user ' - What is your github author email?'
-    read -e git_authoremail
-
-    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.local.symlink.example > git/gitconfig.local.symlink
-
-    success 'gitconfig'
+    git_credential='osxkeychain'
   fi
+
+  user ' - What is your github author name?'
+  read -e git_authorname
+  user ' - What is your github author email?'
+  read -e git_authoremail
+
+  gitconfig --global user.name "$git_authorname"
+  gitconfig --global user.email "$git_authoremail"
+  gitconfig --global credential.helper "$git_credential --timeout=86400000"
+
+  success 'gitconfig'
 }
 
 
@@ -147,12 +146,14 @@ cd yay
 makepkg -si --noconfirm
 
 # Github
+sudo pacman -S git
 user ' - What is your github author name?'
 read -e git_authorname
 user ' - What is your github author email?'
 read -e git_authoremail
 git config --global user.name "$git_authorname"
 git config --global user.email "$git_authoremail"
+git config --global credential.helper "cache --timeout=86400000"
 
 ## Dotfiles
 cd ~
@@ -168,10 +169,32 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
-## Touch gestures
-sudo pacman -S touchegg
-sudo systemctl enable touchegg.service --now
-yay -S touche
+## Touchegg touch gestures
+# sudo pacman -S touchegg
+# sudo systemctl enable touchegg.service --now
+# yay -S touche
+# mkdir -p ~/.config/touchegg
+# ln -s ~/dotfiles/touchegg/touchegg.conf ~/.config/touchegg/touchegg.conf
+
+## Fusuma touch gestures
+# Add USER to input group
+newgrp input
+sudo gpasswd -a $USER input
+
+# Install Fusuma
+sudo pacman -Syu libinput
+sudo pacman -Syu ruby
+gem install fusuma # non root install
+sudo pacman -Syu xdotool
+#
+ Link the config file
+mkdir -p ~/.config/fusuma
+ln -s ~/dotfiles/fusuma/config.yml ~/.config/fusuma/config.yml
+
+# Add these lines to `~/.bashrc` or `~/.zshrc` to add ruby gems to path
+echo '# Ruby Gems
+export GEM_HOME="$(gem env user_gemhome)"
+export PATH="$PATH:$GEM_HOME/bin"' >> ~/.zshrc
 
 ### Firefox touch gestures
 sudo echo "MOZ_USE_XINPUT2 DEFAULT=1" >> /etc/security/pam_env.conf

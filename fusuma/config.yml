@@ -1,0 +1,33 @@
+swipe:
+  3:
+    up:
+      sendkey: "LEFTMETA+PAGEUP" # maximize window
+    down:
+      sendkey: "LEFTMETA+PAGEUP" # restore window
+    begin:
+      command: xdotool keydown Alt
+    right:
+      update:
+        command: xdotool key Tab # switch window
+        interval: 5
+    left:
+      update:
+        command: xdotool key Shift+Tab # switch window back
+        interval: 5
+    end:
+      command: xdotool keyup Alt
+  4:
+    up:
+      command: "xdotool key super+w"
+    down:
+      command: "xdotool key super+w"
+pinch:
+  2:
+    in:
+      command: "xdotool keydown ctrl click 4 keyup ctrl" # zoom in
+      threshold: 0.5
+      interval: 0.5
+    out:
+      command: "xdotool keydown ctrl click 5 keyup ctrl" # zoom out
+      threshold: 0.5
+      interval: 0.5
