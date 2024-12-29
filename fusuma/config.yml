@@ -1,9 +1,9 @@
 swipe:
   3:
-    up:
-      sendkey: "LEFTMETA+PAGEUP" # maximize window
-    down:
-      sendkey: "LEFTMETA+PAGEUP" # restore window
+    # up:
+    #   sendkey: "LEFTMETA+PAGEUP" # maximize window
+    # down:
+    #   sendkey: "LEFTMETA+PAGEUP" # restore window
     begin:
       command: xdotool keydown Alt
     right:
@@ -18,9 +18,13 @@ swipe:
       command: xdotool keyup Alt
   4:
     up:
-      command: "xdotool key super+w"
+      sendkey: "LEFTMETA+UP" # maximize window
     down:
-      command: "xdotool key super+w"
+      sendkey: "LEFTMETA+UP" # maximize window
+    # up:
+    #   command: "xdotool key super+w" # show all windows
+    # down:
+    #   command: "xdotool key super+w" # show all windows
 pinch:
   2:
     in:
