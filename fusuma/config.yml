@@ -9,11 +9,9 @@ swipe:
     right:
       update:
         command: xdotool key Tab # switch window
-        interval: 5
     left:
       update:
         command: xdotool key Shift+Tab # switch window back
-        interval: 5
     end:
       command: xdotool keyup Alt
   4:

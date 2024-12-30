@@ -13,4 +13,4 @@ UUID=C64C-684C  /boot/efi       vfat    umask=0077      0       1
 UUID=73eaf074-c3e5-4136-81fb-c877805cb115 /home           ext4    defaults        0       2
 /swapfile                                 none            swap    sw              0       0
 #/dev/disk/by-uuid/E22808072807D985 /media/ts/Data auto nosuid,nodev,nofail,x-gvfs-show,windows_names,fmask=013,dmask=003,uid=1000,gid=1000 0 0
-/dev/disk/by-uuid/E22808072807D985 /media/ts/Data ntfs3 nosuid,nodev,nofail,x-gvfs-show,windows_names,uid=1000,gid=1000,iocharset=utf8 0 0
+/dev/disk/by-uuid/E22808072807D985 /media/Data ntfs3 nosuid,nodev,nofail,x-gvfs-show,windows_names,uid=1000,gid=1000,iocharset=utf8 0 0
